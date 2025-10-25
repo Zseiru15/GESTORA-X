@@ -35,24 +35,24 @@ GESTORA X ofrece una solución intuitiva, de bajo costo y pensada para personas 
 
 ## 🚀 Tecnologías utilizadas
 
-- **Frontend**: React.js + Next.js + Tailwind (interfaz web).
+- **Frontend**: React.js + Next.js + Tailwind (interfaz web) + Shadcn.
 <p>
-<img src="https://go-skill-icons.vercel.app/api/icons?i=react,nextjs,tailwind"/>
+<img src="https://go-skill-icons.vercel.app/api/icons?i=react,nextjs,tailwind,shadcn"/>
 </p>
 
-- **Backend**: Node.js + Express + JWT para autenticación + Prisma.
+- **Backend**: Node.js + Express + JWT (para autenticación).
 <p>
-<img src="https://go-skill-icons.vercel.app/api/icons?i=nodejs,expressjs,jwt,prisma"/>
+<img src="https://go-skill-icons.vercel.app/api/icons?i=nodejs,expressjs,jwt"/>
 </p>
 
-- **Base de datos**: MySQL.
+- **Base de datos**: Prisma + MySQL.
 <p>
-<img src="https://go-skill-icons.vercel.app/api/icons?i=mysql"/>
+<img src="https://go-skill-icons.vercel.app/api/icons?i=prisma,mysql"/>
 </p>
 
 - **Infraestructura**: Ubuntu Server + VPS en la nube.
 <p>
-<img src="https://go-skill-icons.vercel.app/api/icons?i=ubuntu,vpn"/>
+<img src="https://go-skill-icons.vercel.app/api/icons?i=ubuntu"/>
 </p>
 
 - **Pruebas**: Jest, Postman.
