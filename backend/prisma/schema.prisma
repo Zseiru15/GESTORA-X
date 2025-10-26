@@ -6,7 +6,6 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../generated/prisma"
 }
 
 datasource db {
@@ -14,10 +13,123 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// =====================================================
+//  MODELOS PRINCIPALES
+// =====================================================
+
+// --------------------
+//  ROLES
+// --------------------
+model Rol {
+  id          Int       @id @default(autoincrement())
+  nombre      String    @unique
+  descripcion String?
+  usuarios    Usuario[]
+}
+
+// --------------------
+//  USUARIOS
+// --------------------
 model Usuario {
-  id        Int      @id @default(autoincrement())
-  nombre    String
-  email     String   @unique
-  password  String
-  createdAt DateTime @default(now())
+  id            Int        @id @default(autoincrement())
+  nombre        String
+  apellido      String
+  correo        String     @unique
+  password      String
+  rolId         Int
+  empresaId     Int?
+  creadoEn      DateTime   @default(now())
+  actualizadoEn DateTime   @updatedAt
+
+  // Relaciones
+  rol        Rol        @relation(fields: [rolId], references: [id])
+  empresa    Empresa?   @relation(fields: [empresaId], references: [id])
+  ventas     Venta[]
+  logs       Log[]
+}
+
+// --------------------
+//  EMPRESAS
+// --------------------
+model Empresa {
+  id          Int         @id @default(autoincrement())
+  nombre      String
+  nit         String       @unique
+  direccion   String
+  telefono    String
+  email       String?
+  creadoEn    DateTime     @default(now())
+  actualizadoEn DateTime   @updatedAt
+
+  // Relaciones
+  sucursales  Sucursal[]
+  usuarios    Usuario[]
+}
+
+// --------------------
+//  SUCURSALES
+// --------------------
+model Sucursal {
+  id          Int          @id @default(autoincrement())
+  nombre      String       @unique
+  direccion   String
+  telefono    String?
+  empresaId   Int
+  creadoEn    DateTime     @default(now())
+  actualizadoEn DateTime   @updatedAt
+
+  // Relaciones
+  empresa     Empresa      @relation(fields: [empresaId], references: [id])
+  inventario  Inventario[]
+  ventas      Venta[]
+}
+
+// --------------------
+//  INVENTARIO
+// --------------------
+model Inventario {
+  id            Int        @id @default(autoincrement())
+  nombre        String     @unique
+  descripcion   String?
+  cantidad      Int         @default(0)
+  precioUnitario Float
+  sucursalId    Int
+  creadoEn      DateTime    @default(now())
+  actualizadoEn DateTime   @updatedAt
+
+  // Relaciones
+  sucursal   Sucursal     @relation(fields: [sucursalId], references: [id])
+  ventas     Venta[]
+}
+
+// --------------------
+//  VENTAS
+// --------------------
+model Venta {
+  id            Int        @id @default(autoincrement())
+  fecha         DateTime    @default(now())
+  cantidad      Int
+  total         Float
+  usuarioId     Int
+  inventarioId  Int
+  sucursalId    Int
+
+  // Relaciones
+  usuario     Usuario    @relation(fields: [usuarioId], references: [id])
+  inventario  Inventario @relation(fields: [inventarioId], references: [id])
+  sucursal    Sucursal   @relation(fields: [sucursalId], references: [id])
+}
+
+// --------------------
+//  LOGS
+// --------------------
+model Log {
+  id          Int        @id @default(autoincrement())
+  usuarioId   Int?
+  accion      String
+  descripcion String?
+  fecha       DateTime   @default(now())
+
+  // Relaciones
+  usuario     Usuario?   @relation(fields: [usuarioId], references: [id])
 }
