@@ -4,10 +4,16 @@
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
+// =====================================================
+//  PRISMA SCHEMA - GESTORA X
+// =====================================================
+
+// Cliente Prisma
 generator client {
   provider = "prisma-client-js"
 }
 
+// Fuente de datos
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
@@ -24,6 +30,8 @@ model Rol {
   id          Int       @id @default(autoincrement())
   nombre      String    @unique
   descripcion String?
+  estado      Int       @default(1) // 1 = activo | 0 = inactivo
+
   usuarios    Usuario[]
 }
 
@@ -38,6 +46,7 @@ model Usuario {
   password      String
   rolId         Int
   empresaId     Int?
+  estado        Int        @default(1) // 1 = activo | 0 = inactivo
   creadoEn      DateTime   @default(now())
   actualizadoEn DateTime   @updatedAt
 
@@ -52,54 +61,57 @@ model Usuario {
 //  EMPRESAS
 // --------------------
 model Empresa {
-  id          Int         @id @default(autoincrement())
-  nombre      String
-  nit         String       @unique
-  direccion   String
-  telefono    String
-  email       String?
-  creadoEn    DateTime     @default(now())
-  actualizadoEn DateTime   @updatedAt
+  id            Int         @id @default(autoincrement())
+  nombre        String
+  nit           String       @unique
+  direccion     String
+  telefono      String
+  email         String?
+  estado        Int          @default(1) // 1 = activo | 0 = inactivo
+  creadoEn      DateTime     @default(now())
+  actualizadoEn DateTime     @updatedAt
 
   // Relaciones
-  sucursales  Sucursal[]
-  usuarios    Usuario[]
+  sucursales    Sucursal[]
+  usuarios      Usuario[]
 }
 
 // --------------------
 //  SUCURSALES
 // --------------------
 model Sucursal {
-  id          Int          @id @default(autoincrement())
-  nombre      String       @unique
-  direccion   String
-  telefono    String?
-  empresaId   Int
-  creadoEn    DateTime     @default(now())
-  actualizadoEn DateTime   @updatedAt
+  id            Int          @id @default(autoincrement())
+  nombre        String       @unique
+  direccion     String
+  telefono      String?
+  empresaId     Int
+  estado        Int          @default(1) // 1 = activo | 0 = inactivo
+  creadoEn      DateTime     @default(now())
+  actualizadoEn DateTime     @updatedAt
 
   // Relaciones
-  empresa     Empresa      @relation(fields: [empresaId], references: [id])
-  inventario  Inventario[]
-  ventas      Venta[]
+  empresa       Empresa      @relation(fields: [empresaId], references: [id])
+  inventario    Inventario[]
+  ventas        Venta[]
 }
 
 // --------------------
 //  INVENTARIO
 // --------------------
 model Inventario {
-  id            Int        @id @default(autoincrement())
-  nombre        String     @unique
-  descripcion   String?
-  cantidad      Int         @default(0)
+  id             Int        @id @default(autoincrement())
+  nombre         String     @unique
+  descripcion    String?
+  cantidad       Int         @default(0)
   precioUnitario Float
-  sucursalId    Int
-  creadoEn      DateTime    @default(now())
-  actualizadoEn DateTime   @updatedAt
+  sucursalId     Int
+  estado         Int         @default(1) // 1 = activo | 0 = inactivo
+  creadoEn       DateTime    @default(now())
+  actualizadoEn  DateTime    @updatedAt
 
   // Relaciones
-  sucursal   Sucursal     @relation(fields: [sucursalId], references: [id])
-  ventas     Venta[]
+  sucursal    Sucursal     @relation(fields: [sucursalId], references: [id])
+  ventas      Venta[]
 }
 
 // --------------------
@@ -113,6 +125,7 @@ model Venta {
   usuarioId     Int
   inventarioId  Int
   sucursalId    Int
+  estado        Int         @default(1) // 1 = activa | 0 = anulada
 
   // Relaciones
   usuario     Usuario    @relation(fields: [usuarioId], references: [id])
@@ -129,6 +142,7 @@ model Log {
   accion      String
   descripcion String?
   fecha       DateTime   @default(now())
+  estado      Int        @default(1) // 1 = visible | 0 = oculto
 
   // Relaciones
   usuario     Usuario?   @relation(fields: [usuarioId], references: [id])
