@@ -78,12 +78,12 @@ GESTORA X ofrece una solución intuitiva, de bajo costo y pensada para personas 
 
 ## 👨‍💻 Colaboradores
 
-Proyecto desarrollado por estudiantes de **Ingeniería de Sistemas – Unisangil (Yopal)**:
-
 - [Sneyder Camilo Ordoñez Uscátegui](https://github.com/Zseiru15)
 - [Dario Enrique Pulgarin Ramirez](https://github.com/Dariopul)
 - [Sofia Alejandra Bacca Melo](https://github.com/SofiaBacca)
 - [Diego Alejandro](https://github.com/IngeAlejo)
+- [Manuel Rodriguez](https://github.com/TheMacnus)
+- [Frank Ordoñez](https://github.com/Franckk24)
 
 ---
 
