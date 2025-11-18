@@ -1,0 +1,122 @@
+{
+  "entities": {
+    "Company": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Company",
+      "type": "object",
+      "description": "Represents a company managed within the GestoraX application.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Company entity."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the company."
+        },
+        "address": {
+          "type": "string",
+          "description": "The address of the company."
+        },
+        "contactEmail": {
+          "type": "string",
+          "description": "The contact email address of the company.",
+          "format": "email"
+        },
+        "contactPhone": {
+          "type": "string",
+          "description": "The contact phone number of the company."
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "address",
+        "contactEmail",
+        "contactPhone"
+      ]
+    },
+    "Product": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Product",
+      "type": "object",
+      "description": "Represents a product in the inventory.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Product entity."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the product."
+        },
+        "description": {
+          "type": "string",
+          "description": "A description of the product."
+        },
+        "price": {
+          "type": "number",
+          "description": "The price of the product."
+        },
+        "quantity": {
+          "type": "number",
+          "description": "The quantity of the product in stock."
+        },
+        "companyId": {
+          "type": "string",
+          "description": "Reference to Company. (Relationship: Company 1:N Product)"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "description",
+        "price",
+        "quantity",
+        "companyId"
+      ]
+    }
+  },
+  "auth": {
+    "providers": [
+      "password"
+    ]
+  },
+  "firestore": {
+    "structure": [
+      {
+        "path": "/companies/{companyId}",
+        "definition": {
+          "entityName": "Company",
+          "schema": {
+            "$ref": "#/backend/entities/Company"
+          },
+          "description": "Stores company data. Companies are globally accessible to authenticated users.",
+          "params": [
+            {
+              "name": "companyId",
+              "description": "The unique identifier for the company."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/products/{productId}",
+        "definition": {
+          "entityName": "Product",
+          "schema": {
+            "$ref": "#/backend/entities/Product"
+          },
+          "description": "Stores product data. Products are globally accessible to authenticated users.",
+          "params": [
+            {
+              "name": "productId",
+              "description": "The unique identifier for the product."
+            }
+          ]
+        }
+      }
+    ],
+    "reasoning": "The Firestore data structure is designed for simplicity, supporting CRUD operations for companies and products. All authenticated users have full access to these collections."
+  }
+}
