@@ -1,0 +1,20 @@
+-- AlterTable
+ALTER TABLE `empresa` ADD COLUMN `estado` INTEGER NOT NULL DEFAULT 1;
+
+-- AlterTable
+ALTER TABLE `inventario` ADD COLUMN `estado` INTEGER NOT NULL DEFAULT 1;
+
+-- AlterTable
+ALTER TABLE `log` ADD COLUMN `estado` INTEGER NOT NULL DEFAULT 1;
+
+-- AlterTable
+ALTER TABLE `rol` ADD COLUMN `estado` INTEGER NOT NULL DEFAULT 1;
+
+-- AlterTable
+ALTER TABLE `sucursal` ADD COLUMN `estado` INTEGER NOT NULL DEFAULT 1;
+
+-- AlterTable
+ALTER TABLE `usuario` ADD COLUMN `estado` INTEGER NOT NULL DEFAULT 1;
+
+-- AlterTable
+ALTER TABLE `venta` ADD COLUMN `estado` INTEGER NOT NULL DEFAULT 1;
