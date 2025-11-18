@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { Toaster, toast } from "react-hot-toast";
 import { Mail, Lock } from "lucide-react";
+import Footer from "@/components/layout/footer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -147,10 +148,7 @@ export default function Home() {
         </div>
 
         {/* Footer */}
-        <footer className="mt-8 text-center text-xs text-gray-500">
-          © 2025 Gestora X — <span className="text-cyan-400">Tecnología y Gestión Inteligente</span> <br />
-          versión 0.1 — Noviembre 01 de 2025
-        </footer>
+        <Footer />
       </div>
     </div>
   );
